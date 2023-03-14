@@ -1,6 +1,6 @@
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { LoginDto } from './dto/login.dto';
-import { Controller, Post, Body, UsePipes } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 
@@ -20,5 +20,12 @@ export class AuthController {
   @Post('register')
   register(@Body() dto: RegisterDto) {
     return this.authService.register(dto);
+  }
+
+  @ApiOperation({ summary: 'Verifying user' })
+  @ApiResponse({ status: 200 })
+  @Get('/verify/:verificationId')
+  verify(@Param("verificationId") verificationId: string) {
+    return this.authService.verify(verificationId)
   }
 }

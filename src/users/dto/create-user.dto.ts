@@ -1,4 +1,4 @@
-import { IsEmail, Matches, MinLength, IsNotEmpty } from 'class-validator';
+import { IsEmail, Matches, MinLength, IsNotEmpty, IsUUID } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateUserDto {
@@ -18,4 +18,9 @@ export class CreateUserDto {
     message: 'Password is too weak',
   })
   readonly password: string;
+
+  @ApiProperty({ example: '3d603c3e-c1af-11ed-afa1-0242ac120002', description: "User's email verification id" })
+  @IsNotEmpty({ message: 'Verification id must not be empty' })
+  @IsUUID(null, {message: "Invalid verification id"})
+  readonly verificationId: string;
 }

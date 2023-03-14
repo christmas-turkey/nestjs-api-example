@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
+import {MailerModule} from "@nestjs-modules/mailer"
 import { User } from './users/users.model';
 import { UsersModule } from './users/users.module';
 import { PostsModule } from './posts/posts.module';
@@ -16,6 +17,17 @@ import { Comment } from './comments/comments.model';
   imports: [
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,
+    }),
+    MailerModule.forRoot({
+      transport: {
+        host: process.env.SMTP_HOST,
+        port: +process.env.SMTP_PORT,
+        secure: false,
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASSWORD
+        }
+      }
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',

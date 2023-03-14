@@ -6,7 +6,9 @@ import { User } from './users.model';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User) private usersModel: typeof User) {}
+  constructor(
+    @InjectModel(User) private usersModel: typeof User
+  ) {}
 
   async getAllUsers(): Promise<User[]> {
     const users = await this.usersModel.findAll({ include: { all: true } });
@@ -21,6 +23,14 @@ export class UsersService {
   async getUserByEmail(email: string): Promise<User> {
     const user = await this.usersModel.findOne({
       where: { email },
+      include: { all: true },
+    });
+    return user;
+  }
+
+  async getUserByVerificationId(verificationId: string): Promise<User> {
+    const user = await this.usersModel.findOne({
+      where: { verificationId },
       include: { all: true },
     });
     return user;
