@@ -49,11 +49,11 @@ export class AuthService {
 
     const hashedPassword = await bcrypt.hash(dto.password, 12);
 
-    const verificationid = v4()
-    const verificationLink = `http://${process.env.HOST}:${process.env.PORT}/auth/verify/${verificationid}`
+    const verificationId = v4()
+    const verificationLink = `http://${process.env.HOST}:${process.env.PORT}/auth/verify/${verificationId}`
     const createdUser = await this.usersService.createUser({
       ...dto,
-      verificationid,
+      verificationId,
       password: hashedPassword,
     });
     this.mailerService.sendMail({
@@ -68,14 +68,14 @@ export class AuthService {
     return this.generateToken(createdUser);
   }
 
-  async verify(verificationid: string) {
-    const user = await this.usersService.getUserByverificationid(verificationid)
+  async verify(verificationId: string) {
+    const user = await this.usersService.getUserByverificationId(verificationId)
 
     if (!user) {
       throw new HttpException("Invalid verification link", HttpStatus.BAD_REQUEST)
     }
 
-    user.isverified = true;
+    user.isVerified = true;
     await user.save()
 
     return {message: "Verified successfully!"}
@@ -84,7 +84,7 @@ export class AuthService {
   private generateToken(user: User) {
     const payload = {
       id: user.id,
-      isverified: user.isverified,
+      isVerified: user.isVerified,
       username: user.username,
       email: user.email,
       posts: user.posts,

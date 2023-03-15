@@ -37,7 +37,7 @@ import { Comment } from './comments/comments.model';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       models: [User, Post, Comment],
-      autoLoadModels: true,
+      autoLoadModels: true
     }),
     ServeStaticModule.forRoot({
       rootPath: path.join(__dirname, 'static'),
