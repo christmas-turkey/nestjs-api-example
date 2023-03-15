@@ -24,8 +24,8 @@ export class AuthController {
 
   @ApiOperation({ summary: 'Verifying user' })
   @ApiResponse({ status: 200 })
-  @Get('/verify/:verificationId')
-  verify(@Param("verificationId") verificationId: string) {
-    return this.authService.verify(verificationId)
+  @Get('/verify/:verificationid')
+  verify(@Param("verificationid") verificationid: string) {
+    return this.authService.verify(verificationid)
   }
 }

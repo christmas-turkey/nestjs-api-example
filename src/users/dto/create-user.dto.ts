@@ -22,5 +22,5 @@ export class CreateUserDto {
   @ApiProperty({ example: '3d603c3e-c1af-11ed-afa1-0242ac120002', description: "User's email verification id" })
   @IsNotEmpty({ message: 'Verification id must not be empty' })
   @IsUUID(null, {message: "Invalid verification id"})
-  readonly verificationId: string;
+  readonly verificationid: string;
 }

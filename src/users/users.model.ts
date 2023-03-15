@@ -6,8 +6,8 @@ interface UserAttributes {
   username: string;
   email: string;
   password: string;
-  isVerified: boolean;
-  verificationId: string;
+  isverified: boolean;
+  verificationid: string;
 }
 
 @Table({ tableName: 'users' })
@@ -35,11 +35,11 @@ export class User extends Model<User, UserAttributes> {
 
   @ApiProperty({ example: 'false', description: "Shows whether user verified his email" })
   @Column({ type: DataType.BOOLEAN, defaultValue: false })
-  isVerified: boolean;
+  isverified: boolean;
 
   @ApiProperty({ example: '3d603c3e-c1af-11ed-afa1-0242ac120002', description: "User's email verification id" })
   @Column({ type: DataType.STRING, unique: true, allowNull: false })
-  verificationId: string;
+  verificationid: string;
 
   @ApiProperty({
     type: () => [Post],

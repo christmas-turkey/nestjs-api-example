@@ -28,9 +28,9 @@ export class UsersService {
     return user;
   }
 
-  async getUserByVerificationId(verificationId: string): Promise<User> {
+  async getUserByverificationid(verificationid: string): Promise<User> {
     const user = await this.usersModel.findOne({
-      where: { verificationId },
+      where: { verificationid },
       include: { all: true },
     });
     return user;
